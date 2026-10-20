@@ -234,7 +234,7 @@ def main(video_path, calibration_path):
 
     frame_number = 0
     speed = 1 # used to speed up footage, skips frames as necessary
-    target_key = "B3"
+    target_key = "C4"
 
     while True:
         frame_number += 1     
@@ -329,5 +329,7 @@ if __name__ == "__main__":
         if len(sys.argv) > 2
         else "test1.1_keyboard_calibration.npz"
     )
+
+    # to run, type "python3 detect_keypress_video.py [video name].mp4 [calibration name].npz" in terminal
 
     main(video_path, calibration_path)

@@ -1,4 +1,4 @@
-# All colors are BGR, so ex: (0, 255, 255) is yellow, not teal
+# All colors are BGR in cv2, so ex: (0, 255, 255) is yellow, not teal
 
 import cv2
 import numpy as np
@@ -8,7 +8,7 @@ WINDOW_NAME = "Keyboard Calibration"
 KEYBOARD_WIDTH = 5200
 KEYBOARD_HEIGHT = 600
 
-def rgb(r, g, b):
+def rgb(r, g, b): # convert RGB to BGR
     return (b, g, r)
 
 def click_points(image, numpoints, prefix, mode):
@@ -34,6 +34,11 @@ def click_points(image, numpoints, prefix, mode):
     list[(x,y)]
     """
 
+
+    imageHeight, imageWidth = image.shape[:2]
+    print(f'height = {imageHeight}')
+    print(f'width = {imageWidth}')
+    
     points = []
 
     selected = None      # currently moving point
@@ -161,14 +166,15 @@ def click_points(image, numpoints, prefix, mode):
                         bool bottomLeftOrigin = false); 
         '''
 
+        # Display instructions
         for i, line in enumerate(controls):
             cv2.putText(
                 display,
                 line,
-                (20, 60 + i * 60),
+                (int(0.03 * imageWidth), int(0.10 * imageHeight) + i * int(0.05 * imageHeight)),
                 cv2.FONT_HERSHEY_DUPLEX,
-                2,
-                (0, 0, 255),
+                imageWidth/2400,
+                rgb(255, 0, 0),
                 4,
             )
 
@@ -176,9 +182,9 @@ def click_points(image, numpoints, prefix, mode):
         cv2.putText(
             display,
             "Mode: " + mode,
-            (1250, 120),
+            (int(0.41 * imageWidth), int(0.10 * imageHeight)),
             cv2.FONT_HERSHEY_DUPLEX,
-            3,
+            imageWidth/1600,
             (0, 0, 255),
             4,
         )
@@ -187,9 +193,9 @@ def click_points(image, numpoints, prefix, mode):
         cv2.putText(
             display,
             f"Points placed: {len(points)}/{numpoints}",
-            (2500, 120),
+            (int(0.78 * imageWidth), int(0.10 * imageHeight)),
             cv2.FONT_HERSHEY_DUPLEX,
-            3,
+            imageWidth/1600,
             (0, 0, 255),
             4,
         )
