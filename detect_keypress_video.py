@@ -234,7 +234,7 @@ def main(video_path, calibration_path):
 
     frame_number = 0
     speed = 1 # used to speed up footage, skips frames as necessary
-    target_key = "C4"
+    target_key = "Eb4"
 
     while True:
         frame_number += 1     
